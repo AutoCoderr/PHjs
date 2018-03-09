@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/AutoCoderr/PHjs#readme",
   "devDependencies": {
-   "http": ""
+   "http": "",
+   "https": "",
+   "fs": ""
  }
 }
