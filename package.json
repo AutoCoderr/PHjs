@@ -1,0 +1,25 @@
+{
+  "name": "phjs",
+  "version": "1.0.0",
+  "description": "PHP in Javascript",
+  "main": "lib/main.js",
+  "scripts": {
+    "test": "test/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AutoCoderr/PHjs.git"
+  },
+  "keywords": [
+    "wesh"
+  ],
+  "author": "AutoCoderr",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/AutoCoderr/PHjs/issues"
+  },
+  "homepage": "https://github.com/AutoCoderr/PHjs#readme",
+  "devDependencies": {
+   "http": ""
+ }
+}
