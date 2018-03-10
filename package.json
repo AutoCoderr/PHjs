@@ -22,6 +22,7 @@
   "devDependencies": {
    "http": "",
    "https": "",
-   "fs": ""
+   "fs": "",
+   "require-from-string": ""
  }
 }
