@@ -23,6 +23,7 @@
    "http": "",
    "https": "",
    "fs": "",
-   "require-from-string": ""
+   "require-from-string": "",
+   "url": ""
  }
 }
