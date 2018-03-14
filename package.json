@@ -24,6 +24,7 @@
    "https": "",
    "fs": "",
    "require-from-string": "",
-   "url": ""
+   "url": "",
+   "formidable": ""
  }
 }
