@@ -25,6 +25,8 @@
    "fs-extra": "",
    "require-from-string": "",
    "url": "",
-   "formidable": ""
+   "formidable": "",
+   "file-type": "",
+   "read-chunk": ""
  }
 }
