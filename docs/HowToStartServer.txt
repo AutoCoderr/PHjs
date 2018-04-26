@@ -1,0 +1,92 @@
+To get PHjs Server, install the module with npm:
+
+   npm install PHjs
+
+or download on github
+
+
+To start PHjs Server, create a launcher script like this :
+ 
+
+var phjs = require("./PHjs"); //if PHjs module is downloaded in 'PHjs' folder in current directory
+var phjs = require("PHjs"); //if PHjs is downloaded with npm in current directory
+
+phjs("/path/to/website","protocol","port","certificates and keys for https","modules",
+                                                                
+"/path/to/access.log",
+
+                                                                "/path/to/error.log",
+
+                                                                "/path/to/configfile");
+
+
+"/path/to/website" : folder where is stocked website
+
+"protocol" : protocol used by server, it can be 'http' or 'https'
+
+"port" : port number used by server, it can be 80 for 'http' or 443 for 'https'
+
+"certificates and keys": it is used for https protocol
+    if you use http, create an empty object witch {}
+    if you use https, create an object that contains certificates and keys for https.
+
+"modules" : the modules that will be used by server:
+create an empty object {} or create an object who contain module, for example:
+
+   var modules = {mysql: require("mysql")};
+
+
+"/path/to/access.log" : path to the log file
+
+"/path/to/error.log" : path to the error log file
+
+"/path/to/configfile": path to the config file, if you don't want use a confif file, type "nothing"
+
+
+
+
+example of a launcher script :
+
+var mysql = require("mysql"); //get 'mysql' module in mysql variable
+var fs = require("fs-extra"); // get 'fs-extra' module in fs variable
+var modules = {mysql: mysql, fs: fs}; // put 'mysql' and 'fs-extra' modules in 'modules' variable
+var phjs = require("PHjs"); // get 'PHjs' module
+
+
+phjs("/projects/website","http",80,{},modules,
+
+     "/projects/PHjsProject/access.log",
+
+     "/projects/PHjsProject/error.log",
+     "/projects/PHjsProject/config.txt"); 
+
+// start server on '/projects/website' directory, with http protocol,listen on port 80, without keys or certificates, with mysql and fs-extra modules,
+   log in '/projects/PHjsProject/access.log', log error in '/projects/PHjsProject/error.log', config in '/projects/PHjsProject/config.txt'
+
+
+
+
+other exemple of a launcher script :
+
+var mysql = require("mysql"); //get 'mysql' module in mysql variable
+var modules = {mysql: mysql}; // put 'mysql' in 'modules' variable
+var phjs = require("PHjs"); // get 'PHjs' module
+
+var fs = require("fs"); // get 'fs' module
+
+var key = fs.readFileSync('/projects/tls/private.key'); // get private key
+var cert = fs.readFileSync('/projects/tls/certificate.crt'); // get certificate
+var options = { // put key and certificate in 'options' variable
+  key: key,
+  cert: cert
+};
+
+phjs("/projects/website","https",443,options,modules,
+
+     "/projects/PHjsProject/access.log",
+
+     "/projects/PHjsProject/error.log",
+     "nothing"); 
+
+// start server on '/projects/website' directory, with https protocol,listen on port 443, with keys and certificates for TLS (https), with mysql modules,
+   log in '/projects/PHjsProject/access.log', log error in '/projects/PHjsProject/error.log', no config file
