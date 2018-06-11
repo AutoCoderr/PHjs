@@ -20,13 +20,14 @@
   },
   "homepage": "https://github.com/AutoCoderr/PHjs#readme",
   "devDependencies": {
-   "http": "",
-   "https": "",
-   "fs-extra": "",
-   "require-from-string": "",
-   "url": "",
-   "formidable": "",
-   "file-type": "",
-   "read-chunk": ""
- }
+    "http": "",
+    "https": "",
+    "fs-extra": "",
+    "require-from-string": "",
+    "url": "",
+    "formidable": "",
+    "file-type": "",
+    "read-chunk": "",
+    "socket.io": ""
+  }
 }
