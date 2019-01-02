@@ -28,6 +28,7 @@
     "formidable": "",
     "file-type": "",
     "read-chunk": "",
-    "socket.io": ""
+    "socket.io": "",
+    "client-sessions": ""
   }
 }
