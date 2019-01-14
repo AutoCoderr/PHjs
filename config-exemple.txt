@@ -1,0 +1,8 @@
+forbidden: /folder1/,/folder2,/folder3;
+allow: /folder1/folder4;
+
+
+option(/folder1/folder4/): file 
+*.phjs as text/html;
+
+option(/): file *.mp4 is forbidden; recursive YES
