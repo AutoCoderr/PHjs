@@ -3,6 +3,7 @@ function FastUpload() {
 	this.id = "";
 	this.displayId = "";
 	this.started = 0;
+	this.file = "";
 	this.setInput = () => {
 
 		if (typeof(this.id) == "undefined") {
@@ -23,49 +24,13 @@ function FastUpload() {
 	this.upload = () => {
 		if (this.started == 0) {
 
-		if (document.getElementById(this.id).value != "") {
+		if (this.file != "") {
 
-			/*var ext = file.name.split(".")[file.name.split(".").length-1]
+			this.filepart = this.file.slice(0, Math.min(262144, this.file.size));
 
-			if (ext == "jpg"
+			this.reader.readAsBinaryString(this.filepart);
 
-				| ext == "png"
-
-				| ext == "jpeg"
-
-				| ext == "gif"
-
-				| ext == "bmp"
-
-				| ext == "tif"
-
-				| ext == "tiff") {*/
-
-				//if (files[this.id + "-p"].size < 2621440000) {
-
-					//delete this.files[this.id + "-p"];
-
-					this.filepart = this.file.slice(0, Math.min(262144, this.file.size));
-
-					this.reader.readAsBinaryString(this.filepart);
-
-					this.started = 1;
-
-				/*} else {
-
-					$("#uploadbar-" + this.id).empty();
-
-					$("#uploadbar-" + this.id).append("<font color='red' size='3'>This file is too big!</font>");
-
-				}
-
-			} else {
-
-				$("#uploadmsg").empty();
-
-				$("#uploadmsg").append("<font color='red' size='3'>Ce fichier n'est pas une image</font>");
-
-			}*/
+			this.started = 1;
 
 		} else {
 
@@ -105,7 +70,7 @@ function FastUpload() {
 
 	  this.reader.onload = (evnt) => {
 
-			this.socket.emit('Upload', { size: this.file.size, name : this.file.name, data : evnt.target.result });
+			this.socket.emit('Upload', { size: this.file.size, name : this.file.name, data : evnt.target.result, token: this.token });
 
 	  }
 
@@ -131,7 +96,13 @@ function FastUpload() {
 
 			$(this.displayId).val("");
 
+			this.file = "";
+
 			this.started = 0;
+
+			this.token = "";
+
+			this.callback();
 
 		} else if (data.type == 'refused') {
 
@@ -143,12 +114,22 @@ function FastUpload() {
 
 			this.started = 0;
 
+			this.callback("refused : "+data.raison);
+
 		}
 
 	  });
 	};
 
-	this.setUpload = (server,id,displayId) => {
+	this.setUpload = (server,id,displayId,callback,token) => {
+
+		if (token) {
+			this.token = token;
+		} else {
+			this.token = "";
+		}
+
+		this.callback = callback;
 
 		this.displayId = "#"+displayId;
 
