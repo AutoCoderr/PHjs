@@ -18,7 +18,11 @@ function FastUpload() {
 
 	};
 	this.selectFile = (evnt) => { 
-		this.file = evnt.target.files[0]; 
+		if (this.started == 0) {
+			this.file = evnt.target.files[0];
+		}  else {
+			$("#"+this.id).val("");
+		}
 
 	};
 	this.upload = () => {
@@ -70,7 +74,7 @@ function FastUpload() {
 
 	  this.reader.onload = (evnt) => {
 
-			this.socket.emit('Upload', { size: this.file.size, name : this.file.name, data : evnt.target.result, token: this.token });
+			this.socket.emit('Upload', { size: this.file.size, name : this.file.name, data : evnt.target.result, token: this.token, id: this.fastUploadId});
 
 	  }
 
@@ -94,7 +98,7 @@ function FastUpload() {
 
 			$(this.displayId).append("<font color='green' size='3'>File uploaded!</font>");
 
-			$(this.displayId).val("");
+			$("#" + this.id).val("");
 
 			this.file = "";
 
@@ -121,7 +125,14 @@ function FastUpload() {
 	  });
 	};
 
-	this.setUpload = (server,id,displayId,callback,token) => {
+	this.setUpload = (server,id,displayId,callback,fastUploadId,token) => {
+
+		if(fastUploadId) {
+			this.fastUploadId = fastUploadId;
+		} else {
+			alert("fastUploadId not specified");
+			return;
+		}
 
 		if (token) {
 			this.token = token;
