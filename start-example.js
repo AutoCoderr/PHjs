@@ -1,7 +1,7 @@
-var PHjs = require("./PHjs");
+const PHjs = require("./PHjs");
 
-var options = {};
+const options = {};
 
-var libs = {};
+const libs = {};
 
 PHjs("/projects/PHjs/website/","http",8000,options,libs,"/projects/PHjs/access.log","/projects/PHjs/error.log","/projects/PHjs/config.txt");
