@@ -17,11 +17,11 @@ function FastUpload() {
 		document.getElementById(this.id).addEventListener('change',  this.selectFile);
 
 	};
-	this.selectFile = (evnt) => { 
+	this.selectFile = (evnt) => {
 		if (this.started == 0) {
 			this.file = evnt.target.files[0];
 		}  else {
-			$("#"+this.id).val("");
+			document.getElementById(this.id).value = "";
 		}
 
 	};
@@ -37,10 +37,7 @@ function FastUpload() {
 			this.started = 1;
 
 		} else {
-
-			$(this.displayId).empty();
-
-			$(this.displayId).append("<font color='red' size='3'>No file chosen</font>");
+			document.getElementById(this.displayId).innerHTML = "<font color='red' size='3'>No file chosen</font>";
 
 		}
 
@@ -76,7 +73,7 @@ function FastUpload() {
 
 			this.socket.emit('Upload', { size: this.file.size, name : this.file.name, data : evnt.target.result, token: this.token, id: this.fastUploadId});
 
-	  }
+	  };
 
 	  this.socket = io.connect(this.server);
 
@@ -84,9 +81,7 @@ function FastUpload() {
 
 		if (data.type == "progress") {
 
-			$(this.displayId).empty();
-
-			$(this.displayId).append("<progress max='100' value='" + data.percent + "' form='form-id'>" + data.percent + "%</progress><br/>" + Math.round(parseFloat(data.percent)*100)/100 + "%");
+			document.getElementById(this.displayId).innerHTML = "<progress max='100' value='" + data.percent + "' form='form-id'>" + data.percent + "%</progress><br/>" + Math.round(parseFloat(data.percent)*100)/100 + "%";
 
 			this.filepart = this.file.slice(data.place, data.place + Math.min(262144, (this.file.size-data.place)));
 
@@ -94,11 +89,9 @@ function FastUpload() {
 
 		} else if (data.type == "finish") {
 
-			$(this.displayId).empty();
+			document.getElementById(this.displayId).innerHTML = "<font color='green' size='3'>File uploaded!</font>";
 
-			$(this.displayId).append("<font color='green' size='3'>File uploaded!</font>");
-
-			$("#" + this.id).val("");
+			document.getElementById(this.id).value = "";
 
 			this.file = "";
 
@@ -110,11 +103,9 @@ function FastUpload() {
 
 		} else if (data.type == 'refused') {
 
-			$(this.displayId).empty();
+			document.getElementById(this.displayId).innerHTML = "<font color='red' size='3'>" + data.raison + "</font>";
 
-			$(this.displayId).append("<font color='red' size='3'>" + data.raison + "</font>");
-
-			$("#" + this.id).val("");
+			document.getElementById(this.id).value = "";
 
 			this.started = 0;
 
@@ -142,7 +133,7 @@ function FastUpload() {
 
 		this.callback = callback;
 
-		this.displayId = "#"+displayId;
+		this.displayId = displayId;
 
 		this.id = id;
 
